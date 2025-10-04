@@ -49,7 +49,7 @@ F1 score: the harmonic mean of precision and recall, is able to balance the amou
 ROC-AUC (area under receiver operating characteristics curve): measures the ability of the model to distinguish between classes across thresholds. A higher AUC reduces the risk of either missing true cases or falsely alarming healthy patients.
 
 
-** Expected Results **
+**Expected Results**
 
 Logistic regression will give us interpretable coefficients, which are useful for understanding risk factors, but may be outperformed by Random Forest in accuracy, precision, and recall due to its ability to capture nonlinear relationships and feature interactions.
 
