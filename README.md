@@ -1,4 +1,4 @@
-# machine-learning-116.github.io
+# Heart Failure Detection
 
 ## Introduction
 
