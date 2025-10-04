@@ -1,8 +1,8 @@
 # Heart Failure Detection
 
-ML Project Proposal
-Max Roozbahani
-CS 4641
+ML Project Proposal \n
+Max Roozbahani \n
+CS 4641 \n
 Group 116
 
 ## Introduction
