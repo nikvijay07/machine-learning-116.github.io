@@ -15,7 +15,7 @@ Sex
 Chest Pain Type:
 Resting Blood Pressure
 Cholesterol
-Fasting Blood Sugar
+Fasting-Blood-Sugar
 Resting ElectroCardiogram Results
 Maximum Heart Rate
 Exercise Induced Angina
