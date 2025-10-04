@@ -56,6 +56,11 @@ Logistic regression will give us interpretable coefficients, which are useful fo
 Our goal is to achieve an F1 score above 0.75 and an AUC above 0.80, balancing both sensitivity and precision. In particular, we expect recall to be prioritized slightly higher than precision, given the importance of identifying at-risk patients in a medical setting.
 
 
+<img width="282" height="213" alt="Screenshot 2025-10-03 at 10 12 39 PM" src="https://github.com/user-attachments/assets/b5d9a990-da51-43ed-b1ef-f702c7f3f2d2" />
+
+
+<img width="288" height="217" alt="Screenshot 2025-10-03 at 10 11 46 PM" src="https://github.com/user-attachments/assets/646c9fb8-3210-4b64-acbb-08af01362fcb" />
+
 ## References
 
 
