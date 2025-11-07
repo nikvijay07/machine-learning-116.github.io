@@ -45,20 +45,6 @@ Finally, we decided to perform standardization on a few features to make sure th
 We chose a logistic regression model to predict based on our data because it is applicable to binary classification. To adjust for overfitting, we  tested with both ridge and lasso regularization. some features weights to go to 0 if they were not relevant. During this process, we found that ​​RestingBP, Cholesterol, and RestingECG_Normal all ended up with coefficients of 0. 
 
 
-Preprocessing:
-  1. Remove duplicate entries with pandas.DataFrame.drop_duplicates() from pandas
-  2. Feature selection: We will determine what features we want to use based on variance in the sklearn.feature_selection module.
-  3. Outlier detection and removal: We will possibly remove outliers if their z-score is too high.
-
-Supervised learning - We are using supervised learning because the heart disease variable serves as the label for our data
-
-We will use logistic regression because it’s useful for binary labels such as whether someone has heart disease or not. We can use the LogisticRegression class within scikit-learn.
-
-We may also use random forest to get a good general model that isn’t overfit and doesn’t rely solely on any feature. Random forest will also be helpful for prediction in general, and we can use the RandomForestClassifier class. [6]
-
-Finally, we will implement a gradient boosting classifier for the advantages of robustness and being able to iteratively decrease the loss function as well as having strength when dealing with outliers. We can use the GradientBoostinClassifier class from scikit-learn. [7]
-
-
 ## Results and Discussion
 
 Here is the following results on accuracy:
