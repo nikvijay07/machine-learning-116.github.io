@@ -31,18 +31,18 @@ By applying machine learning techniques to patient health data, we can find mean
 ## Methods
 
 
-The first step in creating our model was to preprocess our data. Initially, we checked for duplicates and found none. Following that, we wanted to convert qualitative data into numerical data so it was usable by our model. We used one hot encoding here to convert these features because they had relatively low cardinality and this technique works well with logistic regression. The next step was to perform outlier detection and removal. By visualizing our data with box plots for each feature, we were able to see our distributions and point out any strong outliers. In many instances, we saw individuals with a cholesterol level of 0 or resting blood pressure of 0, which is not biologically possible, making the data recording impractical. However, we did decide to keep most outliers as they were valid data points and represented people’s true data. For the biologically impossible data points, we utilized K-nearest-neighbors with K = 5 and averaged their values for that data point. We used 4 features in order to avoid the curse of dimensionality: Cholesterol, RestingBP, Age, and MaxHR. These features were also selected because their values were continuous integers which were easier to compute distance from. Below is an example of the cholesterol data before and after preprocessing.
-
 <img width="523" height="300" alt="Screenshot 2025-11-07 at 2 11 25 PM" src="https://github.com/user-attachments/assets/1b76de14-79a9-4377-bead-11b56e5fb261" />
+
 Figure 1: Before KNN-Imputation
 
 
 <img width="523" height="300" alt="Screenshot 2025-11-07 at 2 11 38 PM" src="https://github.com/user-attachments/assets/86c2c959-ca5c-4ca0-bbc3-8d3797ecdc73" />
+
 Figure 2: After KNN-Imputation
 
 Finally, we decided to perform standardization on a few features to make sure that the features are on the same scale and therefore weighted similarly. 
 
-We chose a logistic regression model to predict based on our data because it is applicable to binary classification. To adjust for overfitting, we added lasso regularization as we wanted to allow for some features weights to go to 0 if they were not relevant. During this process, we found that ​​RestingBP, Cholesterol, and RestingECG_Normal all ended up with coefficients of 0. 
+We chose a logistic regression model to predict based on our data because it is applicable to binary classification. To adjust for overfitting, we  tested with both ridge and lasso regularization. some features weights to go to 0 if they were not relevant. During this process, we found that ​​RestingBP, Cholesterol, and RestingECG_Normal all ended up with coefficients of 0. 
 
 
 Preprocessing:
@@ -57,6 +57,45 @@ We will use logistic regression because it’s useful for binary labels such as 
 We may also use random forest to get a good general model that isn’t overfit and doesn’t rely solely on any feature. Random forest will also be helpful for prediction in general, and we can use the RandomForestClassifier class. [6]
 
 Finally, we will implement a gradient boosting classifier for the advantages of robustness and being able to iteratively decrease the loss function as well as having strength when dealing with outliers. We can use the GradientBoostinClassifier class from scikit-learn. [7]
+
+
+## Results and Discussion
+
+Here is the following results on accuracy:
+
+<table>
+  <tr>
+    <td>
+    <h3> Lasso Regularization (L1) </h3>
+      <table>
+        <tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>Accuracy</td><td>0.853</td></tr>
+        <tr><td>True Positive (TP)</td><td>89</td></tr>
+        <tr><td>False Positive (FP)</td><td>9</td></tr>
+        <tr><td>True Negative (TN)</td><td>68</td></tr>
+        <tr><td>False Negative (FN)</td><td>18</td></tr>
+        <tr><td>Precision</td><td>0.908</td></tr>
+        <tr><td>Recall</td><td>0.832</td></tr>
+        <tr><td>F1 Score</td><td>0.868</td></tr>
+      </table>
+      </td>
+    <td style="padding-left: 40px;">
+      <h3>Ridge Regularization (L2)</h3>
+      <table>
+        <tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>Accuracy</td><td>0.859</td></tr>
+        <tr><td>True Positive (TP)</td><td>90</td></tr>
+        <tr><td>False Positive (FP)</td><td>9</td></tr>
+        <tr><td>True Negative (TN)</td><td>68</td></tr>
+        <tr><td>False Negative (FN)</td><td>17</td></tr>
+        <tr><td>Precision</td><td>0.909</td></tr>
+        <tr><td>Recall</td><td>0.841</td></tr>
+        <tr><td>F1 Score</td><td>0.874</td></tr>
+      </table>
+  </tr>
+</table>
+
+Overall, our model did achieve our goal of an F1 score of above 80%. 
 
 
 ## Potential Results and Discussion
