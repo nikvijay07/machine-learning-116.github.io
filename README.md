@@ -10,18 +10,18 @@ Group 116
   Heart failure is a life threatening condition that plagues our population globally. It happens when your heart is not able to pump blood properly to meet the needs of your body [1]. Early detection is key for receiving proper treatment and mitigation of consequences like heart attacks down the line. For our project, we will apply machine learning techniques to this field to predict if patients have a heart disease. Testing for heart disease today relies on a variety of different tests, as not one specific one can tell you the full picture [5]. Given the range in the current state of testing, it highlights a tradeoff to be made for any model: less features allows a more widely applicable model however specialized features could produce a higher accuracy.  
   Our dataset [2] is a labeled Kaggle dataset that combines multiple individual datasets internationally into 1 dataset to provide a more diverse range of information. It includes the following features:
 
-Age <br />
-Sex<br />
-Chest Pain Type<br />
-Resting Blood Pressure<br />
-Cholesterol<br />
-Fasting-Blood-Sugar<br />
-Resting ElectroCardiogram Results<br />
-Maximum Heart Rate<br />
-Exercise Induced Angina<br />
-Oldpeak<br />
-ST_Slope<br />
-Heart Disease<br />
+* Age
+* Sex
+* Chest Pain Type
+* Resting Blood Pressure
+* Cholesterol
+* Fasting-Blood-Sugar
+* Resting ElectroCardiogram Results
+* Maximum Heart Rate
+* Exercise Induced Angina
+* Oldpeak
+* ST_Slope
+* Heart Disease
 
 ## Problem Definition
 
@@ -66,7 +66,7 @@ Here is the following results on accuracy:
         <tr><td>F1 Score</td><td>0.868</td></tr>
       </table>
       </td>
-    <td style="padding-left: 40px;">
+    <td style="padding-left: 20px;">
       <h3>Ridge Regularization (L2)</h3>
       <table>
         <tr><th>Metric</th><th>Value</th></tr>
