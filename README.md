@@ -83,7 +83,12 @@ Here is the following results on accuracy:
   </tr>
 </table>
 
-Overall, our model did achieve our goal of an F1 score of above 80%. 
+For a medical model, we hoped that our false negative results would be lower as that is probably the most important statistic of our data. We would much rather overdiagnose positives that underdiagnose negatives and this is also  captured by our recall score being lower than our precision. We also noticed that ridge regularization barely improved results (only by 1 test point) which signifies that the features which were signified as irrelevant by lasso regularization did not have much weight on the decision to begin with. This is also shown in the following image as it displays the coefficients of each feature. 
+
+<img width="944" height="545" alt="Screenshot 2025-11-07 at 4 28 21 PM" src="https://github.com/user-attachments/assets/bfaf5e85-ca0e-4841-8875-f690a95b6ef4" />
+<img width="940" height="542" alt="Screenshot 2025-11-07 at 4 28 30 PM" src="https://github.com/user-attachments/assets/61b4d119-4490-46e7-b3a7-ba86e9c38324" />
+
+Overall, we think the model performed decently well with our data, and I think we can attribute it to the data being standardized and generally low noise. Also, since the model is predicting the classification based on a linear combination of features, it seems that some features do have a fairly linear relationship with the outcome which allows us to produce a decently high accuracy rate. 
 
 
 ## Potential Results and Discussion
