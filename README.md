@@ -53,7 +53,7 @@ Here is the following results on accuracy:
 <table>
   <tr>
     <td>
-    <h3> Lasso Regularization (L1) </h3>
+      <h3>Lasso Regularization (L1)</h3>
       <table>
         <tr><th>Metric</th><th>Value</th></tr>
         <tr><td>Accuracy</td><td>0.853</td></tr>
@@ -65,7 +65,7 @@ Here is the following results on accuracy:
         <tr><td>Recall</td><td>0.832</td></tr>
         <tr><td>F1 Score</td><td>0.868</td></tr>
       </table>
-      </td>
+    </td>
     <td style="padding-left: 20px;">
       <h3>Ridge Regularization (L2)</h3>
       <table>
@@ -79,6 +79,7 @@ Here is the following results on accuracy:
         <tr><td>Recall</td><td>0.841</td></tr>
         <tr><td>F1 Score</td><td>0.874</td></tr>
       </table>
+    </td>
   </tr>
 </table>
 
