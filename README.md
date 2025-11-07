@@ -30,6 +30,18 @@ By applying machine learning techniques to patient health data, we can find mean
 
 ## Methods
 
+
+The first step in creating our model was to preprocess our data. Initially, we checked for duplicates and found none. Following that, we wanted to convert qualitative data into numerical data so it was usable by our model. We used one hot encoding here to convert these features because they had relatively low cardinality and this technique works well with logistic regression. The next step was to perform outlier detection and removal. By visualizing our data with box plots for each feature, we were able to see our distributions and point out any strong outliers. In many instances, we saw individuals with a cholesterol level of 0 or resting blood pressure of 0, which is not biologically possible, making the data recording impractical. However, we did decide to keep most outliers as they were valid data points and represented people’s true data. For the biologically impossible data points, we utilized K-nearest-neighbors with K = 5 and averaged their values for that data point. We used 4 features in order to avoid the curse of dimensionality: Cholesterol, RestingBP, Age, and MaxHR. These features were also selected because their values were continuous integers which were easier to compute distance from. Below is an example of the cholesterol data before and after preprocessing.
+
+<img width="654" height="346" alt="Screenshot 2025-11-07 at 2 11 25 PM" src="https://github.com/user-attachments/assets/1b76de14-79a9-4377-bead-11b56e5fb261" />
+
+<img width="660" height="378" alt="Screenshot 2025-11-07 at 2 11 38 PM" src="https://github.com/user-attachments/assets/62ed0a26-196a-4c74-96ff-b7e34c4e44c5" />
+
+Finally, we decided to perform standardization on a few features to make sure that the features are on the same scale and therefore weighted similarly. 
+
+We chose a logistic regression model to predict based on our data because it is applicable to binary classification. To adjust for overfitting, we added lasso regularization as we wanted to allow for some features weights to go to 0 if they were not relevant. During this process, we found that ​​RestingBP, Cholesterol, and RestingECG_Normal all ended up with coefficients of 0. 
+
+
 Preprocessing:
   1. Remove duplicate entries with pandas.DataFrame.drop_duplicates() from pandas
   2. Feature selection: We will determine what features we want to use based on variance in the sklearn.feature_selection module.
