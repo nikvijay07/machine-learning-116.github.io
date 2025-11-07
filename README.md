@@ -33,9 +33,10 @@ By applying machine learning techniques to patient health data, we can find mean
 
 The first step in creating our model was to preprocess our data. Initially, we checked for duplicates and found none. Following that, we wanted to convert qualitative data into numerical data so it was usable by our model. We used one hot encoding here to convert these features because they had relatively low cardinality and this technique works well with logistic regression. The next step was to perform outlier detection and removal. By visualizing our data with box plots for each feature, we were able to see our distributions and point out any strong outliers. In many instances, we saw individuals with a cholesterol level of 0 or resting blood pressure of 0, which is not biologically possible, making the data recording impractical. However, we did decide to keep most outliers as they were valid data points and represented people’s true data. For the biologically impossible data points, we utilized K-nearest-neighbors with K = 5 and averaged their values for that data point. We used 4 features in order to avoid the curse of dimensionality: Cholesterol, RestingBP, Age, and MaxHR. These features were also selected because their values were continuous integers which were easier to compute distance from. Below is an example of the cholesterol data before and after preprocessing.
 
-<img width="654" height="346" alt="Screenshot 2025-11-07 at 2 11 25 PM" src="https://github.com/user-attachments/assets/1b76de14-79a9-4377-bead-11b56e5fb261" />
+<img width="523" height="300" alt="Screenshot 2025-11-07 at 2 11 25 PM" src="https://github.com/user-attachments/assets/1b76de14-79a9-4377-bead-11b56e5fb261" />
 
-<img width="660" height="378" alt="Screenshot 2025-11-07 at 2 11 38 PM" src="https://github.com/user-attachments/assets/62ed0a26-196a-4c74-96ff-b7e34c4e44c5" />
+<img width="523" height="300" alt="Screenshot 2025-11-07 at 2 11 38 PM" src="https://github.com/user-attachments/assets/86c2c959-ca5c-4ca0-bbc3-8d3797ecdc73" />
+
 
 Finally, we decided to perform standardization on a few features to make sure that the features are on the same scale and therefore weighted similarly. 
 
