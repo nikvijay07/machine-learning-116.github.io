@@ -6,10 +6,10 @@ CS 4641<br />
 Group 116
 
 ### Directories
-/conda/: Environment yaml and setup file
-/README.md: Main report readme
-/_config.yml: Jekyll config for Github Pages
-/heart_failure_detection.ipynb: Jupyter Notebook containing model and visualizations
+/conda/: Environment yaml and setup file <br />
+/README.md: Main report readme <br />
+/_config.yml: Jekyll config for Github Pages <br />
+/heart_failure_detection.ipynb: Jupyter Notebook containing model and visualizations <br />
 
 ## Introduction
 
