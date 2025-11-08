@@ -111,6 +111,10 @@ Overall, we think the model performed decently well with our data, and I think w
 * Manually improving recall for use-case: tune decision threshold to increase false positives and decrease false negatives, use class weights to prioritize positive class
 * Processing results: Cross-validation for more sophisticated metrics, use SHAP to educate on features, validate on external datasets
 
+## Contribution Table and Gantt Chart
+<img width="282" height="213" alt="Screenshot 2025-10-03 at 10 12 39 PM" src="https://github.com/user-attachments/assets/b5d9a990-da51-43ed-b1ef-f702c7f3f2d2" />
+
+[Gantt Chart](https://docs.google.com/spreadsheets/d/12L8_VrgD5vhyxSndnmP3nrqRqYoYeFIWrzhPhH9Uay8/edit?usp=sharing)
 
 ## References
 
