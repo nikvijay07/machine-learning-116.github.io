@@ -101,7 +101,7 @@ Overall, we think the model performed decently well with our data, and I think w
 
 ## Next Steps
 * Additional models: nonlinear models like SVM, including tree models like RandomForest, Gradient Boost, and neural networks with nonlinearity (rather than the single-layer logistic regression) may be able to capture any nonlinear nature of the data, which may improve our metrics like recall
-* Feature engineering: Create polynomial or interactive features themselves
+* Feature engineering: Create polynomial (apply exponents to individual feature values) or interactive features (e.g. BP * Cholesterol) to alter features themselves
 * Manually improving recall for use-case: tune decision threshold to increase false positives and decrease false negatives, use class weights to prioritize positive class
 * Processing results: Cross-validation for more sophisticated metrics, use SHAP to educate on features, validate on external datasets
 
