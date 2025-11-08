@@ -5,6 +5,12 @@ Max Roozbahani<br />
 CS 4641<br />
 Group 116
 
+### Directories
+/conda/: Environment yaml and setup file
+/README.md: Main report readme
+/_config.yml: Jekyll config for Github Pages
+/heart_failure_detection.ipynb: Jupyter Notebook containing model and visualizations
+
 ## Introduction
 
   Heart failure is a life threatening condition that plagues our population globally. It happens when your heart is not able to pump blood properly to meet the needs of your body [1]. Early detection is key for receiving proper treatment and mitigation of consequences like heart attacks down the line. For our project, we will apply machine learning techniques to this field to predict if patients have a heart disease. Testing for heart disease today relies on a variety of different tests, as not one specific one can tell you the full picture [5]. Given the range in the current state of testing, it highlights a tradeoff to be made for any model: less features allows a more widely applicable model however specialized features could produce a higher accuracy.  
