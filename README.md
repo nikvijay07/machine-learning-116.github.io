@@ -43,7 +43,7 @@ Figure 2: After KNN-Imputation
 
 Finally, we decided to perform standardization on a few features to make sure that the features are on the same scale and therefore weighted similarly. 
 
-We chose a logistic regression model to predict based on our data because it is applicable to binary classification. To adjust for overfitting, we  tested with both ridge and lasso regularization. some features weights to go to 0 if they were not relevant. During this process, we found that ​​RestingBP, Cholesterol, and RestingECG_Normal all ended up with coefficients of 0. 
+We chose a logistic regression model to predict based on our data because it is applicable to binary classification, and is a good application for our case where we do not have a huge number of data points. To adjust for overfitting, we  tested with both ridge and lasso regularization. some features weights to go to 0 if they were not relevant. During this process, we found that ​​RestingBP, Cholesterol, and RestingECG_Normal all ended up with coefficients of 0. 
 
 
 ## Results and Discussion
@@ -90,33 +90,20 @@ For a medical model, we hoped that our false negative results would be lower as 
 
 Overall, we think the model performed decently well with our data, and I think we can attribute it to the data being standardized and generally low noise. Also, since the model is predicting the classification based on a linear combination of features, it seems that some features do have a fairly linear relationship with the outcome which allows us to produce a decently high accuracy rate. 
 
+### Why the model performed as well as it did
+* Pre-processing: One-hot encoding of categorical values to reduce noise, and imputation using KNN-informed values (rather than randomized or simple mean-based imputation)
+* Standardization: StandardScaler to standardize features allows for more stabilized convergence and precludes arbitrarily scaled values (like heartrate being double digit but cholesterol being in hundreds) from dominating other features, especially during L1/L2 regularization
+* Linearity: The assumption of linear classification under logistic regression seemed to hold, as features like Age and MaxBP intuitively would be linearly correlated with heart disease
 
-## Potential Results and Discussion
+### Limitations
+* Model limitations: while linearity of decision boundaries seemed to hold up, it remains a limitation of the model as the relationships are not truly going to be linear; nonlinear or interacting factors may still be relevant
+* Recall–precision tradeoff: The model’s conservative bias toward healthy predictions (not sacrificing precision enough to increase recall) reduces safety for clinical screeening, where we want higher recall even at the cost of precision
 
-As we are using classification methods like logistic regression and random forest, we will evaluate them using the standard metrics of the frequency of true/false negatives and positives (TN, FN, TP, FP respectively), while also interpreting them in a medical context.
-
-Accuracy: the measure of correct classifications (TN + TP) divided by the total number (TN + TP + FN + FP). While accuracy can be skewed by TN in imbalanced datasets, our heart disease data is relatively balanced.
-
-Precision: how many of our guesses actually were positive (TP / TP + FP). This metric mainly allows us to avoid false positives, though in screening, avoiding false negatives is usually more critical.
-
-Recall: the fraction of how many of the true cases we found (TP / TP + FN). On the flip side of precision, recall is important in this context because it is typically best to ensure that the model overdiagnoses positives rather than underdiagnoses. 
-
-F1 score: the harmonic mean of precision and recall, is able to balance the measure of false positives and false negatives which is a core metric for evaluating efficiency and coverage.
-
-ROC-AUC: measures the ability of the model to distinguish between classes across thresholds. A higher AUC reduces the risk of either missing true cases or falsely alarming healthy patients. [3][4]
-
-
-
-**Expected Results**
-
-Logistic regression will give us interpretable coefficients, which are useful for understanding risk factors, but may be outperformed by Random Forest in accuracy, precision, and recall due to its ability to capture nonlinear relationships and feature interactions.
-
-Our goal is to achieve an F1 score above 0.75 and an AUC above 0.80, balancing both sensitivity and precision. In particular, we expect recall to be prioritized slightly higher than precision, given the importance of identifying at-risk patients in a medical setting.
-
-
-<img width="282" height="213" alt="Screenshot 2025-10-03 at 10 12 39 PM" src="https://github.com/user-attachments/assets/b5d9a990-da51-43ed-b1ef-f702c7f3f2d2" />
-
-[Gantt Chart](https://docs.google.com/spreadsheets/d/12L8_VrgD5vhyxSndnmP3nrqRqYoYeFIWrzhPhH9Uay8/edit?usp=sharing)
+## Next Steps
+* Additional models: nonlinear models like SVM, including tree models like RandomForest, Gradient Boost, and neural networks with nonlinearity (rather than the single-layer logistic regression) may be able to capture any nonlinear nature of the data, which may improve our metrics like recall
+* Feature engineering: Create polynomial or interactive features themselves
+* Manually improving recall for use-case: tune decision threshold to increase false positives and decrease false negatives, use class weights to prioritize positive class
+* Processing results: Cross-validation for more sophisticated metrics, use SHAP to educate on features, validate on external datasets
 
 
 ## References
