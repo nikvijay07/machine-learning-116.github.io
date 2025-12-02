@@ -28,9 +28,7 @@ Group 116
 Heart disease remains one of the most pressing health challenges worldwide, contributing to significant rates of mortality and long-term disability. The difficulty is that heart disease often develops gradually and can remain undetected until severe complications arise, such as heart attacks, or strokes. Current diagnostic methods rely on an array of tests. This complexity creates barriers to timely diagnosis and effective prevention, leaving many individuals unaware of their risk until it is too late.
 By applying machine learning techniques to patient health data, we can find meaningful patterns of heart disease that are not easily observed through traditional testing. Such predictive tools could serve as powerful aids for clinicians and patients alike, and ultimately reduce the problem of cardiovascular disease.
 
-## Models
-### Logistic Regression
-#### Method
+## Methods
 
 The first step in creating our model was to preprocess our data. Initially, we checked for duplicates and found none. Following that, we wanted to convert qualitative data into numerical data so it was usable by our model. We used one hot encoding here to convert these features because they had relatively low cardinality and this technique works well with logistic regression. The next step was to perform outlier detection and removal. By visualizing our data with box plots for each feature, we were able to see our distributions and point out any strong outliers. In many instances, we saw individuals with a cholesterol level of 0 or resting blood pressure of 0, which is not biologically possible, making the data recording impractical. However, we did decide to keep most outliers as they were valid data points and represented people’s true data. For the biologically impossible data points, we utilized K-nearest-neighbors with K = 5 and averaged their values for that data point. We used 4 features in order to avoid the curse of dimensionality: Cholesterol, RestingBP, Age, and MaxHR. These features were also selected because their values were continuous integers which were easier to compute distance from. Below is an example of the cholesterol data before and after preprocessing.
 
@@ -48,7 +46,7 @@ Finally, we decided to perform standardization on a few features to make sure th
 We chose a logistic regression model to predict based on our data because it is applicable to binary classification, and is a good application for our case where we do not have a huge number of data points. To adjust for overfitting, we  tested with both ridge and lasso regularization. some features weights to go to 0 if they were not relevant. During this process, we found that ​​RestingBP, Cholesterol, and RestingECG_Normal all ended up with coefficients of 0. 
 
 
-#### Results and Discussion
+## Results and Discussion
 
 Here is the following results on accuracy:
 
@@ -92,163 +90,14 @@ For a medical model, we hoped that our false negative results would be lower as 
 
 Overall, we think the model performed decently well with our data, and I think we can attribute it to the data being standardized and generally low noise. Also, since the model is predicting the classification based on a linear combination of features, it seems that some features do have a fairly linear relationship with the outcome which allows us to produce a decently high accuracy rate. 
 
-#### Why the model performed as well as it did
+### Why the model performed as well as it did
 * Pre-processing: One-hot encoding of categorical values to reduce noise, and imputation using KNN-informed values (rather than randomized or simple mean-based imputation)
 * Standardization: StandardScaler to standardize features allows for more stabilized convergence and precludes arbitrarily scaled values (like heartrate being double digit but cholesterol being in hundreds) from dominating other features, especially during L1/L2 regularization
 * Linearity: The assumption of linear classification under logistic regression seemed to hold, as features like Age and MaxBP intuitively would be linearly correlated with heart disease
 
-#### Limitations
+### Limitations
 * Model limitations: while linearity of decision boundaries seemed to hold up, it remains a limitation of the model as the relationships are not truly going to be linear; nonlinear or interacting factors may still be relevant
-* Recall–precision tradeoff: The model’s conservative bias toward healthy predictions (not sacrificing precision enough to increase recall) reduces safety for clinical screening, where we want higher recall even at the cost of precision
-
-___
-### Random Forest
-
-## Method
-For our second model, we chose to use a random forest. Random forests tend to perform well on classification tasks, and the variety of available hyperparameters gives us flexibility to tune the model for optimal performance on our data. Since we are tuning our data using cross fold validation, we also made sure to undo the standardization we performed during our preprocessing stage. This is because we did not want each training fold to contain data about the entire distribution of the data as that is counterintuitive to cross fold training. This could lead to slight overfitting as there is more information than necessary for this stage. To combat this, we standardized within each training set, so the training would only possess information about the distribution of the training data. Another improvement we made was to use grid search rather than nested for loops to tune our hyperparameters for optimized speed. This is because grid search is able to run models in parallel rather than sequentially as loops would use. 
-
-#### Results and Discussion
-
-<table>
-  <tr>
-    <th>Metric</th>
-    <th>Value</th>
-  </tr>
-  <tr>
-    <td>Accuracy</td>
-    <td>0.859</td>
-  </tr>
-  <tr>
-    <td>True Positive (TP)</td>
-    <td>93</td>
-  </tr>
-  <tr>
-    <td>False Positive (FP)</td>
-    <td>11</td>
-  </tr>
-  <tr>
-    <td>True Negative (TN)</td>
-    <td>66</td>
-  </tr>
-  <tr>
-    <td>False Negative (FN)</td>
-    <td>14</td>
-  </tr>
-  <tr>
-    <td>Precision</td>
-    <td>0.89</td>
-  </tr>
-  <tr>
-    <td>Recall</td>
-    <td>0.87</td>
-  </tr>
-  <tr>
-    <td>F1 Score</td>
-    <td>0.88</td>
-  </tr>
-</table>
-
-      
-
-<img width="751" height="436" alt="Screenshot 2025-12-02 at 4 26 11 PM" src="https://github.com/user-attachments/assets/201b426d-a33e-4b49-9d32-17c294b4ffed" />
-
-___
-
-
-
-
-___
-### XGBoost
-#### Methods
-
-For our final model, we used extreme gradient boosted decision trees. We chose this method to compare its performance against our classic random forest model and to get a better understanding of how this type of boosting algorithm works. As opposed to random forest, this type of algorithm creates trees that sequentially improve on the error of the previous tree. For binary classification, each tree outputs a residual value which is the negative gradient of the loss function (ri = yi - pi). Where pi equals the predicted probability of the datapoint being in that classification and yi = the true label of that datapoint. Each iteration of trees outputs a logit correction which is calculated using the residuals and when testing, the sum of all residuals of the trees gives the final predicted probability of that datapoint. Our hyperparameters for this model were the following:
-
-* number of trees
-* max depth of trees
-* learning rate
-* number of data points per tree
-* number of features per tree
-* regularization lambda
-* gamma (minimum loss reduction required to split node)
-* minimum child weight (minimum amount of information per node before splitting)
-
-____
-
-### Additional Model Performance
-
-Since we extended our analysis beyond logistic regression, we also trained and evaluated two additional supervised learning models on the same preprocessed dataset: **Random Forest** and **XGBoost**. Both models provided their own advantages due to their ability to capture nonlinear interactions between features that logistic regression cannot model.
-
-#### Random Forest Results
-
-The Random Forest classifier performed the strongest overall in terms of recall, which is especially important for a medical model where false negatives are more costly than false positives.
-
-**Performance Metrics:**
-- Accuracy: 0.859  
-- Precision: 0.89  
-- Recall: 0.87  
-- F1 Score: 0.88  
-
-These results show that Random Forest captures more subtle patterns in the data than logistic regression. The feature importance visualization from our notebook highlights ST_Slope_Up, ExerciseAngina, ChestPainType, and Age as major contributors to the model’s decision-making. The ROC curve generated for Random Forest also demonstrated a high AUC (≈0.918), reflecting strong ranking performance and reliable discrimination between positive and negative cases.
-
-#### XGBoost Results
-
-We also trained an XGBoost classifier using RandomizedSearchCV for hyperparameter tuning. While its recall and accuracy were slightly lower than Random Forest, it achieved the **highest AUC** of all models.
-
-**Performance Metrics:**
-- Accuracy: 0.848  
-- Recall: 0.850  
-- F1 Score: 0.867  
-- AUC: 0.926  
-
-XGBoost’s performance indicates excellent ranking quality and probability calibration. Its top features aligned with Random Forest’s findings (ST_Slope, ExerciseAngina, and Age), and the shallow optimal tree depth in tuning suggests the dataset benefits from mild nonlinear structure without requiring deep levels of hierarchy.
-
-### Model Comparison
-
-Below is an aggregated comparison of all three models:
-
-<table>
-  <tr>
-    <th>Model</th>
-    <th>Accuracy</th>
-    <th>Recall</th>
-    <th>F1 Score</th>
-    <th>AUC</th>
-  </tr>
-  <tr>
-    <td>Logistic Regression (L2)</td>
-    <td>0.859</td>
-    <td>0.841</td>
-    <td>0.874</td>
-    <td>0.921</td>
-  </tr>
-  <tr>
-    <td>Random Forest</td>
-    <td>0.859</td>
-    <td><b>0.869</b></td>
-    <td>0.878</td>
-    <td>0.918</td>
-  </tr>
-  <tr>
-    <td>XGBoost</td>
-    <td>0.848</td>
-    <td>0.850</td>
-    <td>0.867</td>
-    <td><b>0.926</b></td>
-  </tr>
-</table>
-
-### Interpretation and Tradeoffs
-
-The models each demonstrate different strengths:
-
-* **Logistic Regression** performed surprisingly well given its linear nature. It provided interpretable coefficients and stable performance, but its recall was lower because it cannot capture nonlinear interactions between features.
-
-* **Random Forest** achieved the **highest recall**, meaning it missed the fewest positive cases. For a medical application where under-diagnosis is dangerous, this makes Random Forest the most clinically reliable model. Its ability to model nonlinearities and feature interactions directly contributed to this improvement.
-
-* **XGBoost** produced the **highest AUC**, indicating the best probability ranking performance across thresholds. While slightly behind Random Forest in recall, its strong AUC and probability calibration make it ideal for risk scoring and decision-support systems.
-
-Overall, Random Forest is the best model for prioritizing safety (high recall), while XGBoost is the best for ranking patients by risk (high AUC). Logistic regression remains valuable as a simple, interpretable baseline.
-
+* Recall–precision tradeoff: The model’s conservative bias toward healthy predictions (not sacrificing precision enough to increase recall) reduces safety for clinical screeening, where we want higher recall even at the cost of precision
 
 ## Next Steps
 * Additional models: nonlinear models like SVM, including tree models like RandomForest, Gradient Boost, and neural networks with nonlinearity (rather than the single-layer logistic regression) may be able to capture any nonlinear nature of the data, which may improve our metrics like recall
