@@ -27,6 +27,7 @@ Group 116
 
 Heart disease remains one of the most pressing health challenges worldwide, contributing to significant rates of mortality and long-term disability. The difficulty is that heart disease often develops gradually and can remain undetected until severe complications arise, such as heart attacks, or strokes. Current diagnostic methods rely on an array of tests. This complexity creates barriers to timely diagnosis and effective prevention, leaving many individuals unaware of their risk until it is too late.
 By applying machine learning techniques to patient health data, we can find meaningful patterns of heart disease that are not easily observed through traditional testing. Such predictive tools could serve as powerful aids for clinicians and patients alike, and ultimately reduce the problem of cardiovascular disease.
+___
 ## Models
 ### Logistic Regression
 #### Method
@@ -98,13 +99,39 @@ Overall, we think the model performed decently well with our data, and I think w
 
 #### Limitations
 * Model limitations: while linearity of decision boundaries seemed to hold up, it remains a limitation of the model as the relationships are not truly going to be linear; nonlinear or interacting factors may still be relevant
-* Recall–precision tradeoff: The model’s conservative bias toward healthy predictions (not sacrificing precision enough to increase recall) reduces safety for clinical screeening, where we want higher recall even at the cost of precision
+* Recall–precision tradeoff: The model’s conservative bias toward healthy predictions (not sacrificing precision enough to increase recall) reduces safety for clinical screening, where we want higher recall even at the cost of precision
 
+___
 ### Random Forest
-#### Method
-For our second model, we chose to use a random forest. Random forests tend to perform well on classification tasks, and the variety of available hyperparameters gives us flexibility to tune the model for optimal performance on our data. Since we are tuning our data using cross fold validation, we also made sure to undo the standardization we performed during our preprocessing stage. This is because we did not want each training fold to contain data about the entire distribution of the data as that is counterintuitive to cross fold training. This could lead to slight overfitting as there is more information than necessary for this stage. To combat this, we standardized within each training set, so the training would only possess information about the distribution of the training data. Another improvement we made was to use grid search rather than nested for loops to tune our hyperparameters for optimized speed. This is because grid search is able to run models in parallel rather than sequentially as loops would use.
+
+## Method
+For our second model, we chose to use a random forest. Random forests tend to perform well on classification tasks, and the variety of available hyperparameters gives us flexibility to tune the model for optimal performance on our data. Since we are tuning our data using cross fold validation, we also made sure to undo the standardization we performed during our preprocessing stage. This is because we did not want each training fold to contain data about the entire distribution of the data as that is counterintuitive to cross fold training. This could lead to slight overfitting as there is more information than necessary for this stage. To combat this, we standardized within each training set, so the training would only possess information about the distribution of the training data. Another improvement we made was to use grid search rather than nested for loops to tune our hyperparameters for optimized speed. This is because grid search is able to run models in parallel rather than sequentially as loops would use. 
 
 
+#### Results and Discussion
+
+
+
+
+
+
+
+___
+### XGBoost
+#### Methods
+
+For our final model, we used extreme gradient boosted decision trees. We chose this method to compare its performance against our classic random forest model and to get a better understanding of how this type of boosting algorithm works. As opposed to random forest, this type of algorithm creates trees that sequentially improve on the error of the previous tree. For binary classification, each tree outputs a residual value which is the negative gradient of the loss function (ri = yi - pi). Where pi equals the predicted probability of the datapoint being in that classification and yi = the true label of that datapoint. Each iteration of trees outputs a logit correction which is calculated using the residuals and when testing, the sum of all residuals of the trees gives the final predicted probability of that datapoint. Our hyperparameters for this model were the following:
+
+* number of trees
+* max depth of trees
+* learning rate
+* number of data points per tree
+* number of features per tree
+* regularization lambda
+* gamma (minimum loss reduction required to split node)
+* minimum child weight (minimum amount of information per node before splitting)
+
+____
 
 ## Next Steps
 * Additional models: nonlinear models like SVM, including tree models like RandomForest, Gradient Boost, and neural networks with nonlinearity (rather than the single-layer logistic regression) may be able to capture any nonlinear nature of the data, which may improve our metrics like recall
