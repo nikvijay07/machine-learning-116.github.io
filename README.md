@@ -1,6 +1,6 @@
 # Heart Failure Detection
 
-ML Final Project Proposal<br />
+ML Final Project Report<br />
 Max Roozbahani<br />
 CS 4641<br />
 Group 116
@@ -173,6 +173,82 @@ For our final model, we used extreme gradient boosted decision trees. We chose t
 * minimum child weight (minimum amount of information per node before splitting)
 
 ____
+
+### Additional Model Performance
+
+Since we extended our analysis beyond logistic regression, we also trained and evaluated two additional supervised learning models on the same preprocessed dataset: **Random Forest** and **XGBoost**. Both models provided their own advantages due to their ability to capture nonlinear interactions between features that logistic regression cannot model.
+
+#### Random Forest Results
+
+The Random Forest classifier performed the strongest overall in terms of recall, which is especially important for a medical model where false negatives are more costly than false positives.
+
+**Performance Metrics:**
+- Accuracy: 0.859  
+- Precision: 0.89  
+- Recall: 0.87  
+- F1 Score: 0.88  
+
+These results show that Random Forest captures more subtle patterns in the data than logistic regression. The feature importance visualization from our notebook highlights ST_Slope_Up, ExerciseAngina, ChestPainType, and Age as major contributors to the model’s decision-making. The ROC curve generated for Random Forest also demonstrated a high AUC (≈0.918), reflecting strong ranking performance and reliable discrimination between positive and negative cases.
+
+#### XGBoost Results
+
+We also trained an XGBoost classifier using RandomizedSearchCV for hyperparameter tuning. While its recall and accuracy were slightly lower than Random Forest, it achieved the **highest AUC** of all models.
+
+**Performance Metrics:**
+- Accuracy: 0.848  
+- Recall: 0.850  
+- F1 Score: 0.867  
+- AUC: 0.926  
+
+XGBoost’s performance indicates excellent ranking quality and probability calibration. Its top features aligned with Random Forest’s findings (ST_Slope, ExerciseAngina, and Age), and the shallow optimal tree depth in tuning suggests the dataset benefits from mild nonlinear structure without requiring deep levels of hierarchy.
+
+### Model Comparison
+
+Below is an aggregated comparison of all three models:
+
+<table>
+  <tr>
+    <th>Model</th>
+    <th>Accuracy</th>
+    <th>Recall</th>
+    <th>F1 Score</th>
+    <th>AUC</th>
+  </tr>
+  <tr>
+    <td>Logistic Regression (L2)</td>
+    <td>0.859</td>
+    <td>0.841</td>
+    <td>0.874</td>
+    <td>0.921</td>
+  </tr>
+  <tr>
+    <td>Random Forest</td>
+    <td>0.859</td>
+    <td><b>0.869</b></td>
+    <td>0.878</td>
+    <td>0.918</td>
+  </tr>
+  <tr>
+    <td>XGBoost</td>
+    <td>0.848</td>
+    <td>0.850</td>
+    <td>0.867</td>
+    <td><b>0.926</b></td>
+  </tr>
+</table>
+
+### Interpretation and Tradeoffs
+
+The models each demonstrate different strengths:
+
+* **Logistic Regression** performed surprisingly well given its linear nature. It provided interpretable coefficients and stable performance, but its recall was lower because it cannot capture nonlinear interactions between features.
+
+* **Random Forest** achieved the **highest recall**, meaning it missed the fewest positive cases. For a medical application where under-diagnosis is dangerous, this makes Random Forest the most clinically reliable model. Its ability to model nonlinearities and feature interactions directly contributed to this improvement.
+
+* **XGBoost** produced the **highest AUC**, indicating the best probability ranking performance across thresholds. While slightly behind Random Forest in recall, its strong AUC and probability calibration make it ideal for risk scoring and decision-support systems.
+
+Overall, Random Forest is the best model for prioritizing safety (high recall), while XGBoost is the best for ranking patients by risk (high AUC). Logistic regression remains valuable as a simple, interpretable baseline.
+
 
 ## Next Steps
 * Additional models: nonlinear models like SVM, including tree models like RandomForest, Gradient Boost, and neural networks with nonlinearity (rather than the single-layer logistic regression) may be able to capture any nonlinear nature of the data, which may improve our metrics like recall
