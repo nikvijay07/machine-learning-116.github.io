@@ -109,17 +109,45 @@ For our second model, we chose to use a random forest. Random forests tend to pe
 
 #### Results and Discussion
 
-      <table>
-        <tr><th>Metric</th><th>Value</th></tr>
-        <tr><td>Accuracy</td><td>0.859</td></tr>
-        <tr><td>True Positive (TP)</td><td>93</td></tr>
-        <tr><td>False Positive (FP)</td><td>11</td></tr>
-        <tr><td>True Negative (TN)</td><td>66</td></tr>
-        <tr><td>False Negative (FN)</td><td>14</td></tr>
-        <tr><td>Precision</td><td>0.89</td></tr>
-        <tr><td>Recall</td><td>0.87</td></tr>
-        <tr><td>F1 Score</td><td>0.88</td></tr>
-      </table>
+<table>
+  <tr>
+    <th>Metric</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>Accuracy</td>
+    <td>0.859</td>
+  </tr>
+  <tr>
+    <td>True Positive (TP)</td>
+    <td>93</td>
+  </tr>
+  <tr>
+    <td>False Positive (FP)</td>
+    <td>11</td>
+  </tr>
+  <tr>
+    <td>True Negative (TN)</td>
+    <td>66</td>
+  </tr>
+  <tr>
+    <td>False Negative (FN)</td>
+    <td>14</td>
+  </tr>
+  <tr>
+    <td>Precision</td>
+    <td>0.89</td>
+  </tr>
+  <tr>
+    <td>Recall</td>
+    <td>0.87</td>
+  </tr>
+  <tr>
+    <td>F1 Score</td>
+    <td>0.88</td>
+  </tr>
+</table>
+
       
 
 <img width="751" height="436" alt="Screenshot 2025-12-02 at 4 26 11 PM" src="https://github.com/user-attachments/assets/201b426d-a33e-4b49-9d32-17c294b4ffed" />
