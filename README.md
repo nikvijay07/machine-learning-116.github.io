@@ -165,20 +165,9 @@ The confusion matrix and feature importance plot show that the model identifies 
 
 ### XGBoost
 
-We also trained an XGBoost (gradient boosting) classifier to capture more complex patterns by iteratively correcting errors from previous trees. Trees are built sequentially, with each tree improving upon the residuals of the last, and logistic loss is used as the objective function. Using 5-fold cross-validation, we identified a high-performing configuration with a small tree depth of 2, a learning rate of 0.027, regularization strength lambda of 1.52, and subsampling fractions of 0.85 for features and 0.87 for samples.
+We also trained an XGBoost (gradient boosting) classifier to capture more complex patterns by iteratively correcting errors from previous trees. Trees are built sequentially, with each tree improving upon the residuals of the last, and logistic loss is used as the objective function. Using 5-fold cross-validation and random search, we identified a high-performing configuration with a small tree depth of 2, a learning rate of 0.027, regularization strength lambda of 1.52, and subsampling fractions of 0.85 for features and 0.87 for samples.
 
 XGBoost achieved the following performance on the test set:
-
-For our final model, we used extreme gradient boosted decision trees. We chose this method to compare its performance against our classic random forest model and to get a better understanding of how this type of boosting algorithm works. As opposed to random forest, this type of algorithm creates trees that sequentially improve on the error of the previous tree. For binary classification, each tree outputs a residual value which is the negative gradient of the loss function (ri = yi - pi). Where pi equals the predicted probability of the datapoint being in that classification and yi = the true label of that datapoint. Each iteration of trees outputs a logit correction which is calculated using the residuals and when testing, the sum of all residuals of the trees gives the final predicted probability of that datapoint. Our hyperparameters for this model were the following, which we optimized through 5-fold cross-validation and random search.
-
-* max depth of trees = 2
-* number of trees = 323
-* learning rate = 0.027
-* fraction of data points per tree = 0.87
-* fraction of features per tree = 0.85
-* regularization lambda = 1.52
-* gamma (minimum loss reduction required to split node) = 0.54
-* minimum child weight (minimum amount of information per node before splitting) = 1
 
 <table>
   <tr><th>Metric</th><th>Value</th></tr>
