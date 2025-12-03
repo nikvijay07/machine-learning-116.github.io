@@ -150,11 +150,19 @@ For our second model, we chose to use a random forest. Random forests tend to pe
   </tr>
 </table>
 
+<img width="751" height="436" alt="Screenshot 2025-12-02 at 4 26 11 PM" src="https://github.com/user-attachments/assets/cdd12e42-917c-4c0d-bc89-6ee13e7aab98" />
 
-Below is also the feature importance and weights for each feature for this model. In this model, the importance for each feature is different from logistic regression. This can be attributed to the fact that logistic regression gives more weights to features with linear relationships between the features and results whereas random forest uses more of a threshold relationship (eg. Age > 60). Random Forest also does not completely eliminate features like lasso regularization might. Overall, the recall was slightly higher than before, however it came with a tradeoff of accuracy. 
+
+In this model, the importance for each feature is different from logistic regression. This can be attributed to the fact that logistic regression gives more weights to features with linear relationships between the features and results whereas random forest uses more of a threshold relationship (eg. Age > 60). Random Forest also does not completely eliminate features like lasso regularization might. Overall, the recall was slightly higher than before, however it came with a tradeoff of accuracy. Our hyperparameters for this model were the following:
+
+* # of trees: [200, 400, 600, 800]
+* Max Depth: [None, 8, 12, 16, 20]
+* Min Sample Split: [2, 4, 6, 10]
+* Max Features: [sqrt(x), log2(x)]
+* Class Weight: [None, Balanced]
+
 
 On a positive note, the general limitations of random forest such as compute time and memory did not seem to affect us drastically as we were able to have enough time to tune and run our models with multiple different hyperparameters. 
-
 
 More results will be discussed in the later sections. 
 ___
