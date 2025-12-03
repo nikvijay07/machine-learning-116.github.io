@@ -55,8 +55,7 @@ To extend our analysis beyond logistic regression, we also trained and evaluated
 #### Method
 For our second model, we chose to use a random forest. Random forests tend to perform well on classification tasks, and the variety of available hyperparameters gives us flexibility to tune the model for optimal performance on our data. Since we are tuning our data using cross fold validation, we also made sure to undo the standardization we performed during our preprocessing stage. This is because we did not want each training fold to contain data about the entire distribution of the data as that is counterintuitive to cross fold training. This could lead to slight overfitting as there is more information than necessary for this stage. To combat this, we standardized within each training set, so the training would only possess information about the distribution of the training data. Another improvement we made was to use grid search rather than nested for loops to tune our hyperparameters for optimized speed. This is because grid search is able to run models in parallel rather than sequentially as loops would use. 
 
-<img width="751" height="436" alt="Screenshot 2025-12-02 at 4 26 11 PM" src="https://github.com/user-attachments/assets/075497a4-4f9a-4f92-8335-1a3cb89a9130" />
-In this model, the importance for each feature is different from logistic regression. This can be attributed to the fact that logistic regression gives more weights to features with linear relationships between the features and results whereas random forest uses more of a threshold relationship (eg. Age > 60). Random Forest also does not completely eliminate features like lasso regularization might. Overall, the recall was slightly higher than before, however it came with a tradeoff of accuracy. 
+In this model, the importance for each feature is different from logistic regression in that each feature's importance was more balanced. This can be attributed to the fact that logistic regression gives more weights to features with linear relationships between the features and results whereas random forest uses more of a threshold relationship (eg. Age > 60). Random Forest also does not completely eliminate features like lasso regularization might. Overall, the recall was slightly higher than before, however it came with a tradeoff of accuracy. 
 
 On a positive note, the general limitations of random forest such as compute time and memory did not seem to affect us drastically as we were able to have enough time to tune and run our models with multiple different hyperparameters. 
 More results will be discussed in the later sections. 
@@ -149,6 +148,7 @@ On the test set, the best Random Forest achieved the following performance:
 </table>
 
 The confusion matrix and feature importance plot show that the model identifies a large majority of positive heart-disease cases while still maintaining reasonable specificity. Features related to ST segment slope (such as ST_Slope_Up and ST_Slope_Flat), along with ischemia indicators like Oldpeak and ExerciseInducedAngina, emerged as the most informative predictors. Other features such as MaxHR and Chest Pain Type also contributed meaningfully.
+<img width="751" height="436" alt="Screenshot 2025-12-02 at 4 26 11 PM" src="https://github.com/user-attachments/assets/075497a4-4f9a-4f92-8335-1a3cb89a9130" />
 
 #### Why the model performed as well as it did
 
