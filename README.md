@@ -213,6 +213,7 @@ Across the three models, we observe a tradeoff between interpretability, recall,
 
 ## Next Steps
 Building on these insights, several next steps are appropriate:
+* More in-depth feature engineering to combine or augment features could be relevant for logistic regression and XGBoost, but less helpful for Random Forest because it already showcases trees with high depth and is able to learn these interactions
 * If we wanted to do some continued work on the models, we could introduce an ensemble approach where the models work together.
 * It would be cool to show some of our findings to researchers of cardiovascular health or doctors in the field.
 * Finish documenting and turn in our final results.
