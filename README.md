@@ -1,6 +1,6 @@
 # Heart Failure Detection
 
-ML Final Project Report<br />
+ML Final Project Proposal<br />
 Max Roozbahani<br />
 CS 4641<br />
 Group 116
@@ -27,8 +27,10 @@ Group 116
 
 Heart disease remains one of the most pressing health challenges worldwide, contributing to significant rates of mortality and long-term disability. The difficulty is that heart disease often develops gradually and can remain undetected until severe complications arise, such as heart attacks, or strokes. Current diagnostic methods rely on an array of tests. This complexity creates barriers to timely diagnosis and effective prevention, leaving many individuals unaware of their risk until it is too late.
 By applying machine learning techniques to patient health data, we can find meaningful patterns of heart disease that are not easily observed through traditional testing. Such predictive tools could serve as powerful aids for clinicians and patients alike, and ultimately reduce the problem of cardiovascular disease.
-
-## Methods
+___
+## Models
+### Logistic Regression
+#### Method
 
 The first step in creating our model was to preprocess our data. Initially, we checked for duplicates and found none. Following that, we wanted to convert qualitative data into numerical data so it was usable by our model. We used one hot encoding here to convert these features because they had relatively low cardinality and this technique works well with logistic regression. The next step was to perform outlier detection and removal. By visualizing our data with box plots for each feature, we were able to see our distributions and point out any strong outliers. In many instances, we saw individuals with a cholesterol level of 0 or resting blood pressure of 0, which is not biologically possible, making the data recording impractical. However, we did decide to keep most outliers as they were valid data points and represented people’s true data. For the biologically impossible data points, we utilized K-nearest-neighbors with K = 5 and averaged their values for that data point. We used 4 features in order to avoid the curse of dimensionality: Cholesterol, RestingBP, Age, and MaxHR. These features were also selected because their values were continuous integers which were easier to compute distance from. Below is an example of the cholesterol data before and after preprocessing.
 
@@ -46,7 +48,7 @@ Finally, we decided to perform standardization on a few features to make sure th
 We chose a logistic regression model to predict based on our data because it is applicable to binary classification, and is a good application for our case where we do not have a huge number of data points. To adjust for overfitting, we  tested with both ridge and lasso regularization. some features weights to go to 0 if they were not relevant. During this process, we found that ​​RestingBP, Cholesterol, and RestingECG_Normal all ended up with coefficients of 0. 
 
 
-## Results and Discussion
+#### Results and Discussion
 
 Here is the following results on accuracy:
 
@@ -90,14 +92,66 @@ For a medical model, we hoped that our false negative results would be lower as 
 
 Overall, we think the model performed decently well with our data, and I think we can attribute it to the data being standardized and generally low noise. Also, since the model is predicting the classification based on a linear combination of features, it seems that some features do have a fairly linear relationship with the outcome which allows us to produce a decently high accuracy rate. 
 
-### Why the model performed as well as it did
+#### Why the model performed as well as it did
 * Pre-processing: One-hot encoding of categorical values to reduce noise, and imputation using KNN-informed values (rather than randomized or simple mean-based imputation)
 * Standardization: StandardScaler to standardize features allows for more stabilized convergence and precludes arbitrarily scaled values (like heartrate being double digit but cholesterol being in hundreds) from dominating other features, especially during L1/L2 regularization
 * Linearity: The assumption of linear classification under logistic regression seemed to hold, as features like Age and MaxBP intuitively would be linearly correlated with heart disease
 
-### Limitations
+#### Limitations
 * Model limitations: while linearity of decision boundaries seemed to hold up, it remains a limitation of the model as the relationships are not truly going to be linear; nonlinear or interacting factors may still be relevant
-* Recall–precision tradeoff: The model’s conservative bias toward healthy predictions (not sacrificing precision enough to increase recall) reduces safety for clinical screeening, where we want higher recall even at the cost of precision
+* Recall–precision tradeoff: The model’s conservative bias toward healthy predictions (not sacrificing precision enough to increase recall) reduces safety for clinical screening, where we want higher recall even at the cost of precision
+
+___
+### Random Forest
+
+## Method
+For our second model, we chose to use a random forest. Random forests tend to perform well on classification tasks, and the variety of available hyperparameters gives us flexibility to tune the model for optimal performance on our data. Since we are tuning our data using cross fold validation, we also made sure to undo the standardization we performed during our preprocessing stage. This is because we did not want each training fold to contain data about the entire distribution of the data as that is counterintuitive to cross fold training. This could lead to slight overfitting as there is more information than necessary for this stage. To combat this, we standardized within each training set, so the training would only possess information about the distribution of the training data. Another improvement we made was to use grid search rather than nested for loops to tune our hyperparameters for optimized speed. This is because grid search is able to run models in parallel rather than sequentially as loops would use. 
+
+
+#### Results and Discussion
+
+      <table>
+        <tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>Accuracy</td><td>0.859</td></tr>
+        <tr><td>True Positive (TP)</td><td>93</td></tr>
+        <tr><td>False Positive (FP)</td><td>11</td></tr>
+        <tr><td>True Negative (TN)</td><td>66</td></tr>
+        <tr><td>False Negative (FN)</td><td>14</td></tr>
+        <tr><td>Precision</td><td>0.89</td></tr>
+        <tr><td>Recall</td><td>0.87</td></tr>
+        <tr><td>F1 Score</td><td>0.88</td></tr>
+      </table>
+
+      
+
+<img width="751" height="436" alt="Screenshot 2025-12-02 at 4 26 11 PM" src="https://github.com/user-attachments/assets/075497a4-4f9a-4f92-8335-1a3cb89a9130" />
+
+
+
+In this model, the importance for each feature is different from logistic regression. This can be attributed to the fact that logistic regression gives more weights to features with linear relationships between the features and results whereas random forest uses more of a threshold relationship (eg. Age > 60). Random Forest also does not completely eliminate features like lasso regularization might. Overall, the recall was slightly higher than before, however it came with a tradeoff of accuracy. 
+
+On a positive note, the general limitations of random forest such as compute time and memory did not seem to affect us drastically as we were able to have enough time to tune and run our models with multiple different hyperparameters. 
+
+
+More results will be discussed in the later sections. 
+___
+### XGBoost (Gradient Boosted Trees)
+#### Methods
+
+For our final model, we used extreme gradient boosted decision trees. We chose this method to compare its performance against our classic random forest model and to get a better understanding of how this type of boosting algorithm works. As opposed to random forest, this type of algorithm creates trees that sequentially improve on the error of the previous tree. For binary classification, each tree outputs a residual value which is the negative gradient of the loss function (ri = yi - pi). Where pi equals the predicted probability of the datapoint being in that classification and yi = the true label of that datapoint. Each iteration of trees outputs a logit correction which is calculated using the residuals and when testing, the sum of all residuals of the trees gives the final predicted probability of that datapoint. Our hyperparameters for this model were the following:
+
+* number of trees
+* max depth of trees
+* learning rate
+* number of data points per tree
+* number of features per tree
+* regularization lambda
+* gamma (minimum loss reduction required to split node)
+* minimum child weight (minimum amount of information per node before splitting)
+
+
+
+____
 
 ## Next Steps
 * Additional models: nonlinear models like SVM, including tree models like RandomForest, Gradient Boost, and neural networks with nonlinearity (rather than the single-layer logistic regression) may be able to capture any nonlinear nature of the data, which may improve our metrics like recall
@@ -127,6 +181,7 @@ Overall, we think the model performed decently well with our data, and I think w
 [6] Scikit-Learn, “Random Forests and Other Randomized Tree Ensembles”, Skikit-Learn, 2025. [Online]. Available: https://scikit-learn.org/stable/modules/ensemble.html#forest. [Accessed Oct. 3, 2025]. 
 
 [7] Scikit-Learn, “GradientBoostingClassifier”, Skikit-Learn, 2025. [Online]. Available:https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingClassifier.html#gradientboostingclassifier. [Accessed Oct. 3, 2025]. 
+
 
 
 
