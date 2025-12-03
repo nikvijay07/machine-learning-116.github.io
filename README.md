@@ -106,7 +106,7 @@ ___
 ### Method
 For our second model, we chose to use a random forest. Random forests tend to perform well on classification tasks, and the variety of available hyperparameters gives us flexibility to tune the model for optimal performance on our data. Since we are tuning our data using cross fold validation, we also made sure to undo the standardization we performed during our preprocessing stage. This is because we did not want each training fold to contain data about the entire distribution of the data as that is counterintuitive to cross fold training. This could lead to slight overfitting as there is more information than necessary for this stage. To combat this, we standardized within each training set, so the training would only possess information about the distribution of the training data. Another improvement we made was to use grid search rather than nested for loops to tune our hyperparameters for optimized speed. This is because grid search is able to run models in parallel rather than sequentially as loops would use. Our hyperparameters for this model were the following:
 
-* # of trees: [200, 400, 600, 800]
+* Number of trees: [200, 400, 600, 800]
 * Max Depth: [None, 8, 12, 16, 20]
 * Min Sample Split: [2, 4, 6, 10]
 * Max Features: [sqrt(x), log2(x)]
