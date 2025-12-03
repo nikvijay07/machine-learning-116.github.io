@@ -181,7 +181,10 @@ XGBoost achieved the following performance on the test set:
   <tr><td>F1 Score</td><td>0.87</td></tr>
 </table>
 
+
 Its feature importance plot shows that ST_Slope_Up dominates the model’s decisions, followed by other ischemia-related and chest-pain features. The steep dropoff after the top few features suggests that XGBoost concentrates its predictive power in a smaller subset of variables compared to Random Forest.
+
+<img width="989" height="590" alt="xgboostsignificance" src="https://github.com/user-attachments/assets/60922fed-50f0-47f8-b0db-255296d25098" />
 
 ### Why the model performed as well as it did
 
