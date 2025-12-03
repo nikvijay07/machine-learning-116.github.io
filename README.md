@@ -75,10 +75,10 @@ For our final model, we used extreme gradient boosted decision trees. We chose t
 * gamma (minimum loss reduction required to split node)
 * minimum child weight (minimum amount of information per node before splitting)
 
-#### Results and Discussion
+## Results and Discussion
 
 ### Logistic Regression
-Here is the following results on accuracy:
+Here are the core metrics for L1 vs L2 regularization on our logistic regression model:
 
 <table>
   <tr>
@@ -150,13 +150,13 @@ On the test set, the best Random Forest achieved the following performance:
 
 The confusion matrix and feature importance plot show that the model identifies a large majority of positive heart-disease cases while still maintaining reasonable specificity. Features related to ST segment slope (such as ST_Slope_Up and ST_Slope_Flat), along with ischemia indicators like Oldpeak and ExerciseInducedAngina, emerged as the most informative predictors. Other features such as MaxHR and Chest Pain Type also contributed meaningfully.
 
-### Why the model performed as well as it did
+#### Why the model performed as well as it did
 
 * Ability to model non-linear and interacting features, which aligns with the complex nature of cardiovascular risk factors.
 * The ensembling effect of averaging many decision trees reduces model variance and helps avoid overfitting.
 * A balanced feature importance profile indicates robustness and avoids over-reliance on any single variable.
 
-### Limitations
+#### Limitations
 
 * The model achieves high recall but slightly lower specificity, leading to more false positives compared to logistic regression.
 * Reduced interpretability relative to linear models, since the decision paths of many trees are difficult to trace.
@@ -186,13 +186,13 @@ Its feature importance plot shows that ST_Slope_Up dominates the model’s decis
 
 <img width="989" height="590" alt="xgboostsignificance" src="https://github.com/user-attachments/assets/60922fed-50f0-47f8-b0db-255296d25098" />
 
-### Why the model performed as well as it did
+#### Why the model performed as well as it did
 
 * Gradient boosting can capture subtle, difficult-to-learn patterns by repeatedly correcting mistakes from earlier trees.
 * The low learning rate, shallow trees, and regularization terms help prevent overfitting while maintaining strong predictive power.
 * XGBoost obtained the highest ROC AUC of all models, indicating the strongest ability to rank patients by risk rather than simply classify them.
 
-### Limitations
+#### Limitations
 
 * Slightly lower recall than Random Forest, which leads to more false negatives than the best-performing model.
 * Sensitive to hyperparameter choices, requiring more computation and tuning effort.
