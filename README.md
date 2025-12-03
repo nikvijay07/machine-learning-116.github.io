@@ -221,7 +221,8 @@ Building on these insights, several next steps are appropriate:
 
 
 ## Contribution Table and Gantt Chart
-<img width="282" height="213" alt="Screenshot 2025-10-03 at 10 12 39 PM" src="https://github.com/user-attachments/assets/b5d9a990-da51-43ed-b1ef-f702c7f3f2d2" />
+
+<img width="283" height="333" alt="contribution" src="https://github.com/user-attachments/assets/c880f82a-3331-40b7-947e-f6b4248afaf1" />
 
 [Gantt Chart](https://docs.google.com/spreadsheets/d/12L8_VrgD5vhyxSndnmP3nrqRqYoYeFIWrzhPhH9Uay8/edit?usp=sharing)
 
