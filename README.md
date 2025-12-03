@@ -110,25 +110,48 @@ For our second model, we chose to use a random forest. Random forests tend to pe
 
 #### Results and Discussion
 
-      <table>
-        <tr><th>Metric</th><th>Value</th></tr>
-        <tr><td>Accuracy</td><td>0.859</td></tr>
-        <tr><td>True Positive (TP)</td><td>93</td></tr>
-        <tr><td>False Positive (FP)</td><td>11</td></tr>
-        <tr><td>True Negative (TN)</td><td>66</td></tr>
-        <tr><td>False Negative (FN)</td><td>14</td></tr>
-        <tr><td>Precision</td><td>0.89</td></tr>
-        <tr><td>Recall</td><td>0.87</td></tr>
-        <tr><td>F1 Score</td><td>0.88</td></tr>
-      </table>
 
-      
+<table>
+  <tr>
+    <th>Metric</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>Accuracy</td>
+    <td>0.859</td>
+  </tr>
+  <tr>
+    <td>True Positive (TP)</td>
+    <td>93</td>
+  </tr>
+  <tr>
+    <td>False Positive (FP)</td>
+    <td>11</td>
+  </tr>
+  <tr>
+    <td>True Negative (TN)</td>
+    <td>66</td>
+  </tr>
+  <tr>
+    <td>False Negative (FN)</td>
+    <td>14</td>
+  </tr>
+  <tr>
+    <td>Precision</td>
+    <td>0.89</td>
+  </tr>
+  <tr>
+    <td>Recall</td>
+    <td>0.87</td>
+  </tr>
+  <tr>
+    <td>F1 Score</td>
+    <td>0.88</td>
+  </tr>
+</table>
 
-<img width="751" height="436" alt="Screenshot 2025-12-02 at 4 26 11 PM" src="https://github.com/user-attachments/assets/075497a4-4f9a-4f92-8335-1a3cb89a9130" />
 
-
-
-In this model, the importance for each feature is different from logistic regression. This can be attributed to the fact that logistic regression gives more weights to features with linear relationships between the features and results whereas random forest uses more of a threshold relationship (eg. Age > 60). Random Forest also does not completely eliminate features like lasso regularization might. Overall, the recall was slightly higher than before, however it came with a tradeoff of accuracy. 
+Below is also the feature importance and weights for each feature for this model. In this model, the importance for each feature is different from logistic regression. This can be attributed to the fact that logistic regression gives more weights to features with linear relationships between the features and results whereas random forest uses more of a threshold relationship (eg. Age > 60). Random Forest also does not completely eliminate features like lasso regularization might. Overall, the recall was slightly higher than before, however it came with a tradeoff of accuracy. 
 
 On a positive note, the general limitations of random forest such as compute time and memory did not seem to affect us drastically as we were able to have enough time to tune and run our models with multiple different hyperparameters. 
 
@@ -148,8 +171,6 @@ For our final model, we used extreme gradient boosted decision trees. We chose t
 * regularization lambda
 * gamma (minimum loss reduction required to split node)
 * minimum child weight (minimum amount of information per node before splitting)
-
-
 
 ____
 
